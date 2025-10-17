@@ -4,9 +4,9 @@
 
 This project is a single-page web application generated to fulfill the following brief:
 
-> Create a live world clock application. The page must include a dropdown menu (`<select id='timezone-select'>`) pre-populated with at least three timezones: 'America/New_York', 'Europe/London', and 'Asia/Kolkata'. It must also have a container div (`<div id='clock-display'>`). When a user selects a timezone from the dropdown, the application must fetch the current time from the `https://worldtimeapi.org/api/timezone/{timezone}` API. The fetched time should be displayed in a human-readable format (e.g., HH:MM:SS) inside the clock display div. Use Bootstrap 5 for clean styling.
+> Enhance the world clock application with two new features. First, make the clock 'live'. After the initial time is fetched, the displayed time must update every second without making new API calls. Second, add a display area with the id `#utc-offset` that shows the UTC offset for the selected timezone (e.g., '-04:00' or '+05:30'), which is available in the API response.
 
-This application was built and deployed automatically as part of a multi-round, automated evaluation task for *Round 1*. The entire frontend is self-contained within the index.html file.
+This application was built and deployed automatically as part of a multi-round, automated evaluation task for *Round 2*. The entire frontend is self-contained within the index.html file.
 
 [Image of a modern web application interface]
 
