@@ -27,13 +27,16 @@
             <option value="Asia/Kolkata">Asia/Kolkata</option>
         </select>
         <div id="clock-display" class="fs-2"></div>
+        <div id="utc-offset" class="fs-4 mt-2"></div>
     </div>
     <script>
         async function fetchTime(timezone) {
             try {
                 const response = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`);
                 const data = await response.json();
-                return new Date(data.datetime);
+                const currentTime = new Date(data.datetime);
+                document.getElementById('utc-offset').textContent = `UTC Offset: ${data.utc_offset}`;
+                return currentTime;
             } catch (error) {
                 console.error('Error fetching time:', error);
             }
@@ -46,13 +49,20 @@
             document.getElementById('clock-display').textContent = `${hours}:${minutes}:${seconds}`;
         }
 
-        document.getElementById('timezone-select').addEventListener('change', async function() {
-            const selectedTimezone = this.value;
-            const currentTime = await fetchTime(selectedTimezone);
+        async function updateTimeAndDisplay() {
+            const selectedTimezone = document.getElementById('timezone-select').value;
+            let currentTime = await fetchTime(selectedTimezone);
             updateClockDisplay(currentTime);
-        });
+            
+            setInterval(() => {
+                currentTime.setSeconds(currentTime.getSeconds() + 1);
+                updateClockDisplay(currentTime);
+            }, 1000);
+        }
+
+        document.getElementById('timezone-select').addEventListener('change', updateTimeAndDisplay);
 
         // Initialize with default timezone
-        document.getElementById('timezone-select').dispatchEvent(new Event('change'));
+        updateTimeAndDisplay();
     </script>
 </body>
